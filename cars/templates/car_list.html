@@ -1,19 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Car List</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}
+	List
+{% endblock title %}
+{% block content %}
+
+<div class="row">
 	{% for car in cars %}
-		<a href="{{car.get_absolute_url}}">
-			<h1>
-				{{car.make}} - {{car.model}}
-				<small>
-					{{car.year}}
-				</small>
-			</h1>
-		</a>
-		<hr>
+		<div class="col">
+		<div class="card" style="width: 18rem;">
+			{% if car.car_img %}
+				<img class="card-img-top" src="{{ car.car_img.url }}" alt="Card image cap">
+			{% endif %}
+		  
+		  <div class="card-body">
+		    <h5 class="card-title">{{car.make}} - {{car.model}}</h5>
+		    <p class="card-text">{{car.year}}</p>
+		    <a href="{{car.get_absolute_url}}" class="btn btn-primary">Check it out!</a>
+		  </div>
+		  </div>
+		</div>
+	
 	{% endfor %}
-</body>
-</html>
+</div>
+{% if messages %}
+  <ul class="messages">
+{% for message in messages %}
+      <li class="{{ message.tags }}">
+      {{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock content %}
